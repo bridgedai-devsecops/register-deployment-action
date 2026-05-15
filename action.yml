@@ -1,0 +1,56 @@
+name: 'BridgedAI Register Deployment'
+description: 'Register a production deployment in BridgedAI.'
+branding:
+  icon: 'rocket'
+  color: 'blue'
+inputs:
+  api-url:
+    description: 'BridgedAI API base URL.'
+    required: false
+  access-token:
+    description: 'BridgedAI access token (masked by the action).'
+    required: false
+  tenant:
+    description: 'Tenant identifier.'
+    required: true
+  image:
+    description: 'Deployed image reference.'
+    required: true
+  digest:
+    description: 'Deployed digest (sha256:… or 64-hex).'
+    required: true
+  environment:
+    description: 'Deployment environment.'
+    required: true
+  service:
+    description: 'Logical service name.'
+    required: false
+    default: ''
+  region:
+    description: 'Cloud region.'
+    required: false
+    default: ''
+  cluster:
+    description: 'Cluster name.'
+    required: false
+    default: ''
+  deployment-url:
+    description: 'Deployment URL for humans.'
+    required: false
+    default: ''
+  policy-result-id:
+    description: 'Policy result correlation id.'
+    required: false
+    default: ''
+  mode:
+    description: 'production or mock'
+    required: false
+    default: 'production'
+outputs:
+  deployment-id:
+    description: 'Deployment id returned by BridgedAI.'
+  trust-graph-url:
+    description: 'Trust graph URL when returned by BridgedAI.'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
