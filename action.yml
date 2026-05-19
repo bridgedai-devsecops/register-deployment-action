@@ -2,7 +2,7 @@ name: 'BridgedAI Register Deployment'
 description: 'Probe deployment registration support via GET /v1/actions/capabilities (no invented registration routes).'
 author: 'BridgedAI'
 branding:
-  icon: 'shield'
+  icon: 'rocket'
   color: 'blue'
 inputs:
   api-url:
