@@ -1,12 +1,14 @@
 name: 'BridgedAI Register Deployment'
-description: 'Register a production deployment in BridgedAI.'
+description: 'Probe deployment registration support via GET /v1/actions/capabilities (no invented registration routes).'
+author: 'BridgedAI'
 branding:
   icon: 'rocket'
   color: 'blue'
 inputs:
   api-url:
-    description: 'BridgedAI API base URL.'
+    description: 'BridgedAI API base URL. Defaults to https://api.bridgedai.io when omitted.'
     required: false
+    default: 'https://api.bridgedai.io'
   access-token:
     description: 'BridgedAI access token (masked by the action).'
     required: false
