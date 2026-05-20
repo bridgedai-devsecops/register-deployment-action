@@ -1,5 +1,5 @@
 name: 'BridgedAI Register Deployment'
-description: 'Probe deployment registration support via GET /v1/actions/capabilities (no invented registration routes).'
+description: 'Record deployment results and emit deployment signals (capabilities from @bridgedai/actions-core).'
 author: 'BridgedAI'
 branding:
   icon: 'rocket'
@@ -13,14 +13,14 @@ inputs:
     description: 'BridgedAI access token (masked by the action).'
     required: false
   tenant:
-    description: 'Tenant identifier.'
-    required: true
+    description: 'Tenant identifier (defaults to organization-id in observe mode).'
+    required: false
   image:
-    description: 'Deployed image reference.'
-    required: true
+    description: 'Deployed image reference (required in production mode).'
+    required: false
   digest:
-    description: 'Deployed digest (sha256:… or 64-hex).'
-    required: true
+    description: 'Deployed digest (sha256:… or 64-hex; required in production mode).'
+    required: false
   environment:
     description: 'Deployment environment.'
     required: true
@@ -44,15 +44,45 @@ inputs:
     description: 'Policy result correlation id.'
     required: false
     default: ''
+  status:
+    description: 'Deployment outcome: completed | failed | rolled_back (default completed).'
+    required: false
+    default: 'completed'
+  deployment-id:
+    description: 'Optional existing deployment id to correlate signals.'
+    required: false
+  namespace:
+    description: 'Kubernetes namespace when available.'
+    required: false
+  workload:
+    description: 'Kubernetes workload name when available.'
+    required: false
+  deployment-system:
+    description: 'Deployment system identifier (default github-actions).'
+    required: false
+    default: 'github-actions'
+  organization-id:
+    description: 'BridgedAI organization id (defaults to tenant).'
+    required: false
   mode:
-    description: 'production or mock'
+    description: 'production | observe | mock — observe emits local signals only (staging E2E).'
     required: false
     default: 'production'
+  emit-demo-signals:
+    description: 'When true, tag emitted signals with dataSource=demo. Use false for staging/production E2E.'
+    required: false
+    default: 'false'
 outputs:
   deployment-id:
     description: 'Deployment id returned by BridgedAI.'
   trust-graph-url:
     description: 'Trust graph URL when returned by BridgedAI.'
+  deployment-signal-id:
+    description: 'Idempotency key / signal id for the deployment record.'
+  graph-projected:
+    description: 'Whether graph projection occurred on the backend.'
+  evidence-created:
+    description: 'Whether backend evidence rows were created.'
 runs:
   using: 'node20'
   main: 'dist/index.js'

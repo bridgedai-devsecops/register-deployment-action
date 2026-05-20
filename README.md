@@ -2,7 +2,7 @@
 
 ## What this action does
 
-In production, calls **`GET /v1/actions/capabilities`** on **`https://api.bridgedai.io`** (default) to check whether deployment registration is supported. This action does **not** invent private registration routes; when the backend publishes a public registration endpoint, this action will be updated to call it. Use `mode: mock` for demos.
+In production, reads the **static capabilities contract** from `@bridgedai/actions-core` (`getActionsCapabilities()`). This action does **not** invent private registration routes; when the backend publishes a public registration endpoint, this action will be updated to call it. Use `mode: mock` for demos.
 
 ## Why BridgedAI exists
 
